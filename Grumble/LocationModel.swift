@@ -17,14 +17,13 @@ class LocationModel: NSObject {
     var latitude: String?
     var longitude: String?
     
-    
-    //emtpy constructor
+    //empty constructor
     override init()
     {
     
     }
     
-    //construct with properties of object (foodname, foodimage, longitude, latidude)
+    //constructer with properties of object (foodname, foodimage, longitude, latidude)
     
     init(name: String, image: String, latitude: String, longitude: String)
     {
@@ -37,7 +36,7 @@ class LocationModel: NSObject {
     //prints objects current state
     
     override var description: String {
-        return "Name: \(foodName), image: \(foodImage), latitude: \(latitude), longitude: \(longitude)"
+        return "Name: \(foodName!), image: \(foodImage!), latitude: \(latitude!), longitude: \(longitude!)"
     }
     
 }

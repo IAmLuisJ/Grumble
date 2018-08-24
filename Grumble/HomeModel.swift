@@ -1,6 +1,6 @@
 //
 //  HomeModel.swift
-//  Grumble
+//  Grumbl
 //
 //  Created by Luis on 7/27/18.
 //  Copyright © 2018 SkyCloud. All rights reserved.
@@ -23,7 +23,7 @@ class HomeModel: NSObject, URLSessionDelegate {
     
  //functions
     //downloads items
-    func downloaditems() {
+    func downloadItems() {
         let url: URL = URL(string: urlPath)!
         let defaultSession = Foundation.URLSession(configuration: URLSessionConfiguration.default)
         let task = defaultSession.dataTask(with: url) { (data, response, error) in
@@ -51,6 +51,7 @@ class HomeModel: NSObject, URLSessionDelegate {
         var jsonElement = NSDictionary()
         let locations = NSMutableArray()
         
+        //loops through data downloaded and parsed into results and adds the items to the NSDictionary
         for i in 0 ..< jsonResult.count
         {
             jsonElement = jsonResult[i] as! NSDictionary
@@ -59,13 +60,15 @@ class HomeModel: NSObject, URLSessionDelegate {
         //the following insures none of the json element values are nil through optional binding
         if let name = jsonElement["foodName"] as? String,
         let foodImage = jsonElement["foodImage"] as? String,
-        let latitude = jsonElement["foodLongitude"] as? String,
-        let longitude = jsonElement["foodLatitude"] as? String
+        let longitude = jsonElement["foodLongitude"] as? String,
+        let latitude = jsonElement["foodLatitude"] as? String
         {
             location.foodName = name
             location.foodImage = foodImage
             location.latitude = latitude
             location.longitude = longitude
+            print(name)
+            
         }
         locations.add(location)
         }//end of for loop

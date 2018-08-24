@@ -15,6 +15,11 @@
 		A058D4D220F0042A002E8730 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A058D4D020F0042A002E8730 /* LaunchScreen.storyboard */; };
 		A058D4DD20F0042A002E8730 /* GrumbleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A058D4DC20F0042A002E8730 /* GrumbleTests.swift */; };
 		A058D4E820F0042A002E8730 /* GrumbleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A058D4E720F0042A002E8730 /* GrumbleUITests.swift */; };
+		A0AE5A7B20F835B60088F924 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0AE5A7A20F835B60088F924 /* Media.xcassets */; };
+		A0AE5A7E210BA8620088F924 /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AE5A7D210BA8620088F924 /* HomeModel.swift */; };
+		A0AE5A80210BA89A0088F924 /* LocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AE5A7F210BA89A0088F924 /* LocationModel.swift */; };
+		A0AE5A8221113BF30088F924 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AE5A8121113BF30088F924 /* DetailViewController.swift */; };
+		A0AE5A8521113D1F0088F924 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0AE5A8421113D1F0088F924 /* MapKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +54,11 @@
 		A058D4E320F0042A002E8730 /* GrumbleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GrumbleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A058D4E720F0042A002E8730 /* GrumbleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrumbleUITests.swift; sourceTree = "<group>"; };
 		A058D4E920F0042A002E8730 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A0AE5A7A20F835B60088F924 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		A0AE5A7D210BA8620088F924 /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
+		A0AE5A7F210BA89A0088F924 /* LocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationModel.swift; sourceTree = "<group>"; };
+		A0AE5A8121113BF30088F924 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		A0AE5A8421113D1F0088F924 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0AE5A8521113D1F0088F924 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,10 +90,12 @@
 		A058D4B820F00429002E8730 = {
 			isa = PBXGroup;
 			children = (
+				A0AE5A7A20F835B60088F924 /* Media.xcassets */,
 				A058D4C320F00429002E8730 /* Grumble */,
 				A058D4DB20F0042A002E8730 /* GrumbleTests */,
 				A058D4E620F0042A002E8730 /* GrumbleUITests */,
 				A058D4C220F00429002E8730 /* Products */,
+				A0AE5A8321113D1E0088F924 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -106,6 +119,9 @@
 				A058D4D020F0042A002E8730 /* LaunchScreen.storyboard */,
 				A058D4D320F0042A002E8730 /* Info.plist */,
 				A058D4CB20F00429002E8730 /* Grumble.xcdatamodeld */,
+				A0AE5A7D210BA8620088F924 /* HomeModel.swift */,
+				A0AE5A7F210BA89A0088F924 /* LocationModel.swift */,
+				A0AE5A8121113BF30088F924 /* DetailViewController.swift */,
 			);
 			path = Grumble;
 			sourceTree = "<group>";
@@ -126,6 +142,14 @@
 				A058D4E920F0042A002E8730 /* Info.plist */,
 			);
 			path = GrumbleUITests;
+			sourceTree = "<group>";
+		};
+		A0AE5A8321113D1E0088F924 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A0AE5A8421113D1F0088F924 /* MapKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -232,6 +256,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0AE5A7B20F835B60088F924 /* Media.xcassets in Resources */,
 				A058D4D220F0042A002E8730 /* LaunchScreen.storyboard in Resources */,
 				A058D4CF20F0042A002E8730 /* Assets.xcassets in Resources */,
 				A058D4CA20F00429002E8730 /* Main.storyboard in Resources */,
@@ -259,8 +284,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0AE5A7E210BA8620088F924 /* HomeModel.swift in Sources */,
 				A058D4C720F00429002E8730 /* ViewController.swift in Sources */,
 				A058D4CD20F00429002E8730 /* Grumble.xcdatamodeld in Sources */,
+				A0AE5A8221113BF30088F924 /* DetailViewController.swift in Sources */,
+				A0AE5A80210BA89A0088F924 /* LocationModel.swift in Sources */,
 				A058D4C520F00429002E8730 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -435,6 +463,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4D2F7TK368;
 				INFOPLIST_FILE = Grumble/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -452,6 +481,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4D2F7TK368;
 				INFOPLIST_FILE = Grumble/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

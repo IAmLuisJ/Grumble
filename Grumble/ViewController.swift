@@ -1,7 +1,8 @@
 //
 //  ViewController.swift
 //  Grumble
-//
+// Purpose: app to faciliate finding food
+//Version 1
 //  Created by Luis on 7/6/18.
 //  Copyright © 2018 SkyCloud. All rights reserved.
 //
@@ -9,25 +10,233 @@
 import UIKit
 import CoreData
 
-class ViewController: UIViewController {
-
+class ViewController: UIViewController, HomeModelProtocol {
+    //properties
+    var feedItems: NSArray = NSArray()
+    var selectedItem: LocationModel = LocationModel()
+    var counter = 0
+    var maxCount = 0
+    var foodLabel: UILabel = UILabel()
+    var foodPictureView = UIImageView()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+       let homeModel = HomeModel()
+        homeModel.delegate = self
+        //here is where we download the items
+        homeModel.downloadItems()
+        print(feedItems.count)
+        //grab location and query database for nearby items
+        //calculate distance based on user location
+        
+        
+        //pulls local results that are stored from core data ( this will be useful later to save static information such as user preferences)
+        pullFromCoreData()
+     
+        
+        //generates default picture
+        
+        let foodPicture = UIImage(named: "testfood")
+        foodPictureView = UIImageView(frame: CGRect(x: self.view.bounds.width / 2 - 100, y: self.view.bounds.height / 2  + 100, width: 200, height: 100))
+        foodPictureView.image = foodPicture
+        foodLabel = UILabel(frame: CGRect(x: self.view.bounds.width / 2 - 100, y: self.view.bounds.height / 2 - 50 , width: 200, height: 100))
+        
+        //Sets the properties of the foodlabel TODO: improve font to something larger and easier to move (UI improvement)
+        foodLabel.text = "Burger"
+        foodLabel.textAlignment = NSTextAlignment.center
+        foodLabel.font = UIFont(name: "Noteworthy", size: 42)
+       
+        
+        //adds the picture and label to the main view controller
+        view.addSubview(foodPictureView)
+        view.addSubview(foodLabel)
+        //creates gesture and adds it to the label
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(self.wasDragged(gestureRecognizer:)))
+        foodLabel.isUserInteractionEnabled = true
+        foodPictureView.isUserInteractionEnabled = true
+        foodLabel.addGestureRecognizer(panGesture)
+        
+        //create a gesture for image to be tapped
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.imageTapped(gesture:)))
+        foodPictureView.addGestureRecognizer(tapGesture)
+        
+        
+        //end of viewDidLoad
+    }
+    
+    //Gesture Recognizer used to control the text
+    @objc func wasDragged(gestureRecognizer: UIPanGestureRecognizer) {
+        
+        let translation = gestureRecognizer.translation(in: view)
+        let foodLabel = gestureRecognizer.view!
+        foodLabel.center = CGPoint(x: self.view.bounds.width / 2 + translation.x, y: self.view.bounds.width / 2 + translation.y)
+        //rotation of label
+        let xFromCenter = foodLabel.center.x - self.view.bounds.width / 2
+        var rotation = CGAffineTransform(rotationAngle: xFromCenter / 200)
+        let scale = min(abs(100 / xFromCenter), 1)
+        var stretchAndRotation = rotation.scaledBy(x: scale, y: scale)
+        foodLabel.transform = stretchAndRotation
+        
+        if gestureRecognizer.state == UIGestureRecognizerState.ended {
+            //checks to see if finger has been lifted
+            
+            if foodLabel.center.x < 100 {
+                notChosen()
+            
+            } else if foodLabel.center.x > self.view.bounds.width - 100 {
+                foodChosen()
+                
+            }
+            //resets label
+            rotation = CGAffineTransform(rotationAngle: 0)
+            stretchAndRotation = rotation.scaledBy(x: 1, y: 1)
+            foodLabel.transform = stretchAndRotation
+            foodLabel.center = CGPoint(x: self.view.bounds.width / 2, y: self.view.bounds.height / 2 )
+        }
+        
+        
+    }
+    
+    @objc func imageTapped(gesture: UIGestureRecognizer) {
+        //if the tapped view is an ImageView then set it to imageview
+        if(gesture.view as? UIImageView) != nil {
+            print(counter)
+            let imagecounter = Swift.abs(counter - 1)
+            print("image tapped")
+            print(imagecounter)
+            selectedItem = feedItems[imagecounter] as! LocationModel
+            self.performSegue(withIdentifier: "mapSegue", sender: self)
+        }
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        let detailVC = segue.destination as! DetailViewController
+        detailVC.selectedLocation = selectedItem
+    }
+    
+    func foodChosen() {
+        //print chosen
+      
+        //display chosen picture, then animate swipe and generate next food
+        //let foodPicture = UIImage(named: "testfood")
+        //let foodPictureView = UIImageView(frame: CGRect(x: self.view.bounds.width / 2 - 100, y: self.view.bounds.height / 2  + 100, width: 200, height: 100))
+        let chosenPicture = UIImage(named: "like")
+        let chosenPictureView = UIImageView(frame: CGRect(x: self.view.bounds.width / 2 - 200, y: self.view.bounds.height / 2, width: 200, height: 180))
+        chosenPictureView.image = chosenPicture
+        view.addSubview(chosenPictureView)
+        updateImage()
+        
+        print("chosen has worked")
+        chosenPictureView.image = nil
+        
+       
+    }
+    
+    func notChosen() {
+        //print not chosen
+        print("not chosen")
+        let notChosenPicture = UIImage(named: "nope.jpg")
+        let notChosenPictureView = UIImageView(frame: CGRect(x: self.view.bounds.width / 2 + 50, y: self.view.bounds.height / 2, width: 150, height: 100))
+        notChosenPictureView.image = notChosenPicture
+        view.addSubview(notChosenPictureView)
+        updateImage()
+        notChosenPictureView.image = nil
+        
+    }
+    
+    func updateImage() {
+        //this method should generate a new picture or object from the core data or database array
+        //create user query
+        //check for attributes based on preferences
+        //query.limit = 1
+        //check array of results
+        //loop through array
+        // set image to imageUIView.image = UIImage(data: imageData)
+        
+        //stores the string of path to server and folder of web server
+        let imageServerURL = "http://iamluisj.com/foodimages/"
+       
+        
+        //keeps track of items that are available in the database
+        maxCount = feedItems.count - 1
+        print("max count has been set to \(feedItems.count)")
+        selectedItem = feedItems[counter] as! LocationModel
+        //forces items array into selected item as a locationObject
+        print(selectedItem.description)
+        print("counter is now: \(counter)")
+      
+        if counter < maxCount {
+            //checks to see if there is more items to display
+            
+            let imagePath = imageServerURL + selectedItem.foodImage! + ".png"
+            
+            let imageURL = URL(string: imagePath)
+            let imageRequest = NSMutableURLRequest(url: imageURL!)
+            
+            let imageTask = URLSession.shared.dataTask(with: imageRequest as URLRequest) {
+                data, response, error in
+                
+                if error != nil {
+                    print(error!)
+                } else {
+                    if let data = data {
+                        if let foodImg = UIImage(data: data) {
+                            DispatchQueue.main.async {
+                                self.foodPictureView.image = foodImg
+                                
+                                }
+                                }
+                        }
+                    }
+                }//end of else
+            
+            imageTask.resume()
+            
+            
+            
+            foodLabel.text = selectedItem.foodName
+            
+            print("image has been updated")
+            counter = counter + 1
+        } else if counter == maxCount {
+            //if all the items have been loaded, sets text and image
+            print("max count reached: \(counter), no new items to display")
+            foodLabel.text = "No more items to display"
+            foodLabel.sizeToFit()
+            foodPictureView.image = nil
+        }
+        
+        
+    }
+    
+    func itemsDownloaded(items: NSArray) {
+        feedItems = items
+        
+    }
+    
+    func addNewItemToCoreData() {
+        // let newFood = NSEntityDescription.insertNewObject(forEntityName: "FoodList", into: context)
+        //add item to core data
+        /* newFood.setValue("pasta", forKey: "foodName")
+         //save item to core data
+         do {
+         //  try context.save()
+         print("saved")
+         } catch {
+         print("There was an error")
+         }
+         */
+    }
+    
+    func pullFromCoreData() {
         //setup core data
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
-        
-        let newFood = NSEntityDescription.insertNewObject(forEntityName: "FoodList", into: context)
-        //add item to core data
-        newFood.setValue("pasta", forKey: "foodName")
-        //save item to core data
-        do {
-            try context.save()
-            print("saved")
-        } catch {
-            print("There was an error")
-        }
         //pull information from core data
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "FoodList")
@@ -47,50 +256,24 @@ class ViewController: UIViewController {
         }catch {
             print("Couldn't fetch coredata results")
         }
-        
-        let foodLabel = UILabel(frame: CGRect(x: self.view.bounds.width / 2 - 100, y: self.view.bounds.height / 2 - 50, width: 200, height: 100))
-        
-        foodLabel.text = "Food Name"
-        
-        foodLabel.textAlignment = NSTextAlignment.center
-        
-        view.addSubview(foodLabel)
-        
-        //gesture
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(self.wasDragged(gestureRecognizer:)))
-        
-        foodLabel.isUserInteractionEnabled = true
-        
-        foodLabel.addGestureRecognizer(panGesture)
     }
     
-    @objc func wasDragged(gestureRecognizer: UIPanGestureRecognizer) {
+    func saveImageToLocalStorage(imageFile: UIImage, fileName: String) {
+        //check local directory for image
+        let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         
-        let translation = gestureRecognizer.translation(in: view)
-        let foodLabel = gestureRecognizer.view!
-        foodLabel.center = CGPoint(x: self.view.bounds.width / 2 + translation.x, y: self.view.bounds.width / 2 + translation.y)
-        //rotation of label
-        let xFromCenter = foodLabel.center.x - self.view.bounds.width / 2
-        var rotation = CGAffineTransform(rotationAngle: xFromCenter / 200)
-        let scale = min(abs(100 / xFromCenter), 1)
-        var stretchAndRotation = rotation.scaledBy(x: scale, y: scale)
-        foodLabel.transform = stretchAndRotation
-        
-        if gestureRecognizer.state == UIGestureRecognizerState.ended {
-            //checks to see if finger has been lifted
-            if foodLabel.center.x < 100 {
-                print("not chosen")
-            } else if foodLabel.center.x > self.view.bounds.width - 100 {
-                print("chosen")
+        if documentsPath.count > 0 {
+            //checks to see if there is a path
+            let documentsDirectory = documentsPath[0]
+            let savePath = documentsDirectory + "/" + fileName + ".png"
+            do {
+                try UIImagePNGRepresentation(imageFile)?.write(to: URL(fileURLWithPath: savePath))
+            } catch {
+                //process error
+                
             }
-            rotation = CGAffineTransform(rotationAngle: 0)
-            stretchAndRotation = rotation.scaledBy(x: 1, y: 1)
-            foodLabel.transform = stretchAndRotation
-            foodLabel.center = CGPoint(x: self.view.bounds.width / 2, y: self.view.bounds.height / 2)
-        }
-        
-        
     }
+    }//end of func
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
