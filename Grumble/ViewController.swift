@@ -44,7 +44,8 @@ class ViewController: UIViewController, HomeModelProtocol {
         foodPictureView.image = foodPicture
         foodLabel = UILabel(frame: CGRect(x: self.view.bounds.width / 2 - 100, y: self.view.bounds.height / 2 - 50 , width: 200, height: 100))
         
-        //Sets the properties of the foodlabel TODO: improve font to something larger and easier to move (UI improvement)
+        //Sets the properties of the foodlabel
+        //FIXME: improve font to something larger and easier to move (UI improvement)
         foodLabel.text = "Burger"
         foodLabel.textAlignment = NSTextAlignment.center
         foodLabel.font = UIFont(name: "Noteworthy", size: 42)
@@ -103,14 +104,34 @@ class ViewController: UIViewController, HomeModelProtocol {
     @objc func imageTapped(gesture: UIGestureRecognizer) {
         //if the tapped view is an ImageView then set it to imageview
         if(gesture.view as? UIImageView) != nil {
+            //FIXME: image counter should properly display current image
             print(counter)
             let imagecounter = Swift.abs(counter - 1)
             print("image tapped")
             print(imagecounter)
             selectedItem = feedItems[imagecounter] as! LocationModel
-            self.performSegue(withIdentifier: "mapSegue", sender: self)
-        }
-        
+            //self.performSegue(withIdentifier: "mapSegue", sender: self)
+            
+            //TODO: pass name to maps API
+            let foodMapQuery = selectedItem.foodName
+            var mapRequest = ""
+            //Check to see if google maps is installed, if not use apple maps
+            if UIApplication.shared.canOpenURL(URL(string:"comgooglemaps://")!) {
+                 mapRequest = "comgooglemapsurl://?q=\(foodMapQuery!)"
+            }else {
+                 mapRequest = "http://maps.apple.com/?q=\(foodMapQuery!)"
+            }
+            print(mapRequest)
+            mapRequest = mapRequest.replacingOccurrences(of: " ", with: "+")
+                print(mapRequest)
+                if let mapURL = (URL(string: mapRequest))
+                {
+                     UIApplication.shared.open(mapURL)
+                } else {
+                    print("Could not open URL")
+                }
+            
+                }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

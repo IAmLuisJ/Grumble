@@ -13,7 +13,6 @@
 		A058D4CD20F00429002E8730 /* Grumble.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A058D4CB20F00429002E8730 /* Grumble.xcdatamodeld */; };
 		A058D4CF20F0042A002E8730 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A058D4CE20F0042A002E8730 /* Assets.xcassets */; };
 		A058D4D220F0042A002E8730 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A058D4D020F0042A002E8730 /* LaunchScreen.storyboard */; };
-		A058D4DD20F0042A002E8730 /* GrumbleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A058D4DC20F0042A002E8730 /* GrumbleTests.swift */; };
 		A058D4E820F0042A002E8730 /* GrumbleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A058D4E720F0042A002E8730 /* GrumbleUITests.swift */; };
 		A0AE5A7B20F835B60088F924 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0AE5A7A20F835B60088F924 /* Media.xcassets */; };
 		A0AE5A7E210BA8620088F924 /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AE5A7D210BA8620088F924 /* HomeModel.swift */; };
@@ -49,7 +48,6 @@
 		A058D4D120F0042A002E8730 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A058D4D320F0042A002E8730 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A058D4D820F0042A002E8730 /* GrumbleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GrumbleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A058D4DC20F0042A002E8730 /* GrumbleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrumbleTests.swift; sourceTree = "<group>"; };
 		A058D4DE20F0042A002E8730 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A058D4E320F0042A002E8730 /* GrumbleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GrumbleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A058D4E720F0042A002E8730 /* GrumbleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrumbleUITests.swift; sourceTree = "<group>"; };
@@ -129,7 +127,6 @@
 		A058D4DB20F0042A002E8730 /* GrumbleTests */ = {
 			isa = PBXGroup;
 			children = (
-				A058D4DC20F0042A002E8730 /* GrumbleTests.swift */,
 				A058D4DE20F0042A002E8730 /* Info.plist */,
 			);
 			path = GrumbleTests;
@@ -220,13 +217,16 @@
 				TargetAttributes = {
 					A058D4C020F00429002E8730 = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1000;
 					};
 					A058D4D720F0042A002E8730 = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1000;
 						TestTargetID = A058D4C020F00429002E8730;
 					};
 					A058D4E220F0042A002E8730 = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1000;
 						TestTargetID = A058D4C020F00429002E8730;
 					};
 				};
@@ -297,7 +297,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A058D4DD20F0042A002E8730 /* GrumbleTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -465,6 +464,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4D2F7TK368;
 				INFOPLIST_FILE = Grumble/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -483,6 +483,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4D2F7TK368;
 				INFOPLIST_FILE = Grumble/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
