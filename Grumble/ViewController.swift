@@ -5,7 +5,7 @@
 //Version 1
 //  Created by Luis on 7/6/18.
 //  Copyright © 2018 SkyCloud. All rights reserved.
-//
+// Last updated 03/31/2019
 
 import UIKit
 import CoreData
@@ -30,7 +30,8 @@ class ViewController: UIViewController, HomeModelProtocol {
         homeModel.downloadItems()
         print(feedItems.count)
         //grab location and query database for nearby items
-        //calculate distance based on user location
+        //TODO: calculate distance based on user location
+        //to do this, we have to pass the query to maps API, then return distance
         
         
         //pulls local results that are stored from core data ( this will be useful later to save static information such as user preferences)
@@ -38,15 +39,23 @@ class ViewController: UIViewController, HomeModelProtocol {
      
         
         //generates default picture
-        
         let foodPicture = UIImage(named: "testfood")
+        
         foodPictureView = UIImageView(frame: CGRect(x: self.view.bounds.width / 2 - 100, y: self.view.bounds.height / 2  + 100, width: 200, height: 100))
         foodPictureView.image = foodPicture
-        foodLabel = UILabel(frame: CGRect(x: self.view.bounds.width / 2 - 100, y: self.view.bounds.height / 2 - 50 , width: 200, height: 100))
+        foodPictureView.contentMode = UIImageView.ContentMode.scaleAspectFill
+        //foodPictureView.layer.cornerRadius = 8.0
+        //foodPictureView.clipsToBounds = true
+        //foodPictureView.backgroundColor = UIColor.red
+        
+        //creates food label
+        foodLabel = UILabel(frame: CGRect(x: self.view.bounds.width / 2 - 150, y: self.view.bounds.height / 2 - 50 , width: 300, height: 200))
         
         //Sets the properties of the foodlabel
         //FIXME: improve font to something larger and easier to move (UI improvement)
-        foodLabel.text = "Burger"
+        foodLabel.lineBreakMode = .byWordWrapping
+        foodLabel.numberOfLines = 3
+        foodLabel.text = "Swipe to start"
         foodLabel.textAlignment = NSTextAlignment.center
         foodLabel.font = UIFont(name: "Noteworthy", size: 42)
        
@@ -112,7 +121,7 @@ class ViewController: UIViewController, HomeModelProtocol {
             selectedItem = feedItems[imagecounter] as! LocationModel
             //self.performSegue(withIdentifier: "mapSegue", sender: self)
             
-            //TODO: pass name to maps API
+            //pass name to maps API
             let foodMapQuery = selectedItem.foodName
             var mapRequest = ""
             //Check to see if google maps is installed, if not use apple maps
@@ -141,8 +150,7 @@ class ViewController: UIViewController, HomeModelProtocol {
     }
     
     func foodChosen() {
-        //print chosen
-      
+        //print chosen to console
         //display chosen picture, then animate swipe and generate next food
         //let foodPicture = UIImage(named: "testfood")
         //let foodPictureView = UIImageView(frame: CGRect(x: self.view.bounds.width / 2 - 100, y: self.view.bounds.height / 2  + 100, width: 200, height: 100))
@@ -150,10 +158,15 @@ class ViewController: UIViewController, HomeModelProtocol {
         let chosenPictureView = UIImageView(frame: CGRect(x: self.view.bounds.width / 2 - 200, y: self.view.bounds.height / 2, width: 200, height: 180))
         chosenPictureView.image = chosenPicture
         view.addSubview(chosenPictureView)
+        UIView.animate(withDuration: 0.5, delay: 0.5, options: .curveEaseOut, animations: {
+            chosenPictureView.alpha = 0.0
+        })
+        //chosenPictureView.image = nil
+        
         updateImage()
         
         print("chosen has worked")
-        chosenPictureView.image = nil
+        
         
        
     }
@@ -161,12 +174,15 @@ class ViewController: UIViewController, HomeModelProtocol {
     func notChosen() {
         //print not chosen
         print("not chosen")
-        let notChosenPicture = UIImage(named: "nope.jpg")
+        let notChosenPicture = UIImage(named: "nope")
         let notChosenPictureView = UIImageView(frame: CGRect(x: self.view.bounds.width / 2 + 50, y: self.view.bounds.height / 2, width: 150, height: 100))
         notChosenPictureView.image = notChosenPicture
         view.addSubview(notChosenPictureView)
+        UIView.animate(withDuration: 0.5, delay: 0.5, options: .curveEaseOut, animations:  {
+            notChosenPictureView.alpha = 0.0
+        })
         updateImage()
-        notChosenPictureView.image = nil
+        //notChosenPictureView.image = nil
         
     }
     
@@ -193,7 +209,7 @@ class ViewController: UIViewController, HomeModelProtocol {
       
         if counter < maxCount {
             //checks to see if there is more items to display
-            
+            //TODO: check to see if png exists, if not, use jpg
             let imagePath = imageServerURL + selectedItem.foodImage! + ".png"
             
             let imageURL = URL(string: imagePath)
@@ -225,11 +241,12 @@ class ViewController: UIViewController, HomeModelProtocol {
             print("image has been updated")
             counter = counter + 1
         } else if counter == maxCount {
-            //if all the items have been loaded, sets text and image
+            //if all the items have been loaded, sets text and image and resets counter for next swipe
             print("max count reached: \(counter), no new items to display")
             foodLabel.text = "No more items to display"
             foodLabel.sizeToFit()
             foodPictureView.image = nil
+            counter = 0
         }
         
         
