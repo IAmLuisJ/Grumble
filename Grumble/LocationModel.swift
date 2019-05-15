@@ -12,10 +12,11 @@ import Foundation
 class LocationModel: NSObject {
     //properties
     
+    var id: String?
     var foodName: String?
     var foodImage: String?
-    var latitude: String?
-    var longitude: String?
+    var delivery: String?
+    var gluttenFree: String?
     
     //empty constructor
     override init()
@@ -25,18 +26,19 @@ class LocationModel: NSObject {
     
     //constructer with properties of object (foodname, foodimage, longitude, latidude)
     
-    init(name: String, image: String, latitude: String, longitude: String)
+    init(id: String, name: String, image: String, delivery: String, gluttenFree: String)
     {
+        self.id = id
         self.foodName = name
         self.foodImage = image
-        self.latitude =  latitude
-        self.longitude = longitude
+        self.delivery =  delivery
+        self.gluttenFree = gluttenFree
     
     }
     //prints objects current state
     
     override var description: String {
-        return "Name: \(foodName!), image: \(foodImage!), latitude: \(latitude!), longitude: \(longitude!)"
+        return "ID: \(id!) Name: \(foodName!), image: \(foodImage!), latitude: \(delivery!), longitude: \(gluttenFree!)"
     }
     
 }

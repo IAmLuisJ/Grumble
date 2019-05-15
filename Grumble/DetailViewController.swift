@@ -24,11 +24,9 @@ class DetailViewController : UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         //create cordinates from location latitude and longitude
-        var pointCoordinates: CLLocationCoordinate2D = CLLocationCoordinate2D()
+        let pointCoordinates: CLLocationCoordinate2D = CLLocationCoordinate2D()
         
-        pointCoordinates.latitude = CDouble(self.selectedLocation!.latitude!)!
-        pointCoordinates.longitude = CDouble(self.selectedLocation!.longitude!)!
-        
+       
         //zoom to the region
         let viewRegion: MKCoordinateRegion = MKCoordinateRegionMakeWithDistance(pointCoordinates, 750, 750)
         self.mapView.setRegion(viewRegion, animated: true)

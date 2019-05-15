@@ -217,7 +217,7 @@
 				TargetAttributes = {
 					A058D4C020F00429002E8730 = {
 						CreatedOnToolsVersion = 9.4.1;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1020;
 					};
 					A058D4D720F0042A002E8730 = {
 						CreatedOnToolsVersion = 9.4.1;
@@ -226,7 +226,7 @@
 					};
 					A058D4E220F0042A002E8730 = {
 						CreatedOnToolsVersion = 9.4.1;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1020;
 						TestTargetID = A058D4C020F00429002E8730;
 					};
 				};

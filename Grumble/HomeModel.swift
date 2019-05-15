@@ -19,7 +19,7 @@ class HomeModel: NSObject, URLSessionDelegate {
     //properties
     weak var delegate: HomeModelProtocol!
     var data = Data()
-    let urlPath: String = "http://iamluisj.com/service.php"
+    let urlPath: String = "http://skycloudapps.com/GrumbleService.php"
     
  //functions
     //downloads items
@@ -36,6 +36,7 @@ class HomeModel: NSObject, URLSessionDelegate {
             }
         }
         task.resume()
+        
     }
     
     //parses json
@@ -50,7 +51,8 @@ class HomeModel: NSObject, URLSessionDelegate {
         
         var jsonElement = NSDictionary()
         let locations = NSMutableArray()
-        
+        print(jsonResult)
+        print(jsonResult.count)
         //loops through data downloaded and parsed into results and adds the items to the NSDictionary
         for i in 0 ..< jsonResult.count
         {
@@ -58,15 +60,17 @@ class HomeModel: NSObject, URLSessionDelegate {
             let location = LocationModel()
         
         //the following insures none of the json element values are nil through optional binding
-        if let name = jsonElement["foodName"] as? String,
+        if let id = jsonElement["id"] as? String,
+        let name = jsonElement["foodName"] as? String,
         let foodImage = jsonElement["foodImage"] as? String,
-        let longitude = jsonElement["foodLongitude"] as? String,
-        let latitude = jsonElement["foodLatitude"] as? String
+        let longitude = jsonElement["delivery"] as? String,
+        let latitude = jsonElement["gluttenFree"] as? String
         {
+            location.id = id
             location.foodName = name
             location.foodImage = foodImage
-            location.latitude = latitude
-            location.longitude = longitude
+            location.delivery = latitude
+            location.gluttenFree = longitude
             print(name)
             
         }
@@ -75,6 +79,7 @@ class HomeModel: NSObject, URLSessionDelegate {
         
         DispatchQueue.main.async(execute: { () -> Void in
             self.delegate.itemsDownloaded(items: locations)
+            
         })
     }
 }

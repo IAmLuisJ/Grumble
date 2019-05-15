@@ -18,17 +18,19 @@ class ViewController: UIViewController, HomeModelProtocol {
     var maxCount = 0
     var foodLabel: UILabel = UILabel()
     var foodPictureView = UIImageView()
+    var foodUsedArray: Array<Int> = Array()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
-       let homeModel = HomeModel()
+    
+        let homeModel = HomeModel()
         homeModel.delegate = self
         //here is where we download the items
         homeModel.downloadItems()
         print(feedItems.count)
+       
         //grab location and query database for nearby items
         //TODO: calculate distance based on user location
         //to do this, we have to pass the query to maps API, then return distance
@@ -36,7 +38,6 @@ class ViewController: UIViewController, HomeModelProtocol {
         
         //pulls local results that are stored from core data ( this will be useful later to save static information such as user preferences)
         pullFromCoreData()
-     
         
         //generates default picture
         let foodPicture = UIImage(named: "testfood")
@@ -95,10 +96,8 @@ class ViewController: UIViewController, HomeModelProtocol {
             
             if foodLabel.center.x < 100 {
                 notChosen()
-            
             } else if foodLabel.center.x > self.view.bounds.width - 100 {
                 foodChosen()
-                
             }
             //resets label
             rotation = CGAffineTransform(rotationAngle: 0)
@@ -144,7 +143,6 @@ class ViewController: UIViewController, HomeModelProtocol {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         let detailVC = segue.destination as! DetailViewController
         detailVC.selectedLocation = selectedItem
     }
@@ -152,8 +150,6 @@ class ViewController: UIViewController, HomeModelProtocol {
     func foodChosen() {
         //print chosen to console
         //display chosen picture, then animate swipe and generate next food
-        //let foodPicture = UIImage(named: "testfood")
-        //let foodPictureView = UIImageView(frame: CGRect(x: self.view.bounds.width / 2 - 100, y: self.view.bounds.height / 2  + 100, width: 200, height: 100))
         let chosenPicture = UIImage(named: "like")
         let chosenPictureView = UIImageView(frame: CGRect(x: self.view.bounds.width / 2 - 200, y: self.view.bounds.height / 2, width: 200, height: 180))
         chosenPictureView.image = chosenPicture
@@ -166,7 +162,9 @@ class ViewController: UIViewController, HomeModelProtocol {
         updateImage()
         
         print("chosen has worked")
-        
+        foodUsedArray = Array(0...feedItems.count)
+        //shuffle array
+        print(foodUsedArray)
         
        
     }
@@ -186,6 +184,12 @@ class ViewController: UIViewController, HomeModelProtocol {
         
     }
     
+    func randomSort(incomingCounter: Int) {
+        
+        
+        
+    }
+    
     func updateImage() {
         //this method should generate a new picture or object from the core data or database array
         //create user query
@@ -196,10 +200,11 @@ class ViewController: UIViewController, HomeModelProtocol {
         // set image to imageUIView.image = UIImage(data: imageData)
         
         //stores the string of path to server and folder of web server
-        let imageServerURL = "http://iamluisj.com/foodimages/"
+        let imageServerURL = "http://skycloudapps.com/foodimages/"
        
         
         //keeps track of items that are available in the database
+        
         maxCount = feedItems.count - 1
         print("max count has been set to \(feedItems.count)")
         selectedItem = feedItems[counter] as! LocationModel
@@ -234,11 +239,10 @@ class ViewController: UIViewController, HomeModelProtocol {
             
             imageTask.resume()
             
-            
-            
             foodLabel.text = selectedItem.foodName
             
             print("image has been updated")
+            //TODO: instead of adding to counter, we should randomize order
             counter = counter + 1
         } else if counter == maxCount {
             //if all the items have been loaded, sets text and image and resets counter for next swipe
