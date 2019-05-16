@@ -16,8 +16,10 @@ class ViewController: UIViewController, HomeModelProtocol {
     var selectedItem: LocationModel = LocationModel()
     var counter = 0
     var maxCount = 0
+    var titleLabel: UILabel = UILabel()
     var foodLabel: UILabel = UILabel()
     var foodPictureView = UIImageView()
+    var titlePictureView = UIImageView()
     var foodUsedArray: Array<Int> = Array()
     
     
@@ -45,9 +47,9 @@ class ViewController: UIViewController, HomeModelProtocol {
         foodPictureView = UIImageView(frame: CGRect(x: self.view.bounds.width / 2 - 100, y: self.view.bounds.height / 2  + 100, width: 200, height: 100))
         foodPictureView.image = foodPicture
         foodPictureView.contentMode = UIImageView.ContentMode.scaleAspectFill
-        //foodPictureView.layer.cornerRadius = 8.0
+        foodPictureView.layer.cornerRadius = 8.0
         //foodPictureView.clipsToBounds = true
-        //foodPictureView.backgroundColor = UIColor.red
+        foodPictureView.backgroundColor = UIColor.gray
         
         //creates food label
         foodLabel = UILabel(frame: CGRect(x: self.view.bounds.width / 2 - 150, y: self.view.bounds.height / 2 - 50 , width: 300, height: 200))
@@ -58,12 +60,18 @@ class ViewController: UIViewController, HomeModelProtocol {
         foodLabel.numberOfLines = 3
         foodLabel.text = "Swipe to start"
         foodLabel.textAlignment = NSTextAlignment.center
-        foodLabel.font = UIFont(name: "Noteworthy", size: 42)
-       
+        foodLabel.font = UIFont(name: "Futura", size: 42)
+        
+        //Intialize the title
+        createTitle()
         
         //adds the picture and label to the main view controller
+        view.addSubview(titlePictureView)
         view.addSubview(foodPictureView)
         view.addSubview(foodLabel)
+        view.addSubview(titleLabel)
+        
+        
         //creates gesture and adds it to the label
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(self.wasDragged(gestureRecognizer:)))
         foodLabel.isUserInteractionEnabled = true
@@ -182,6 +190,27 @@ class ViewController: UIViewController, HomeModelProtocol {
         updateImage()
         //notChosenPictureView.image = nil
         
+    }
+    
+    func createTitle() {
+        //add title
+        titleLabel = UILabel(frame: CGRect(x: self.view.bounds.width / 2 - 150, y: self.view.bounds.height / 2 - 375, width: 300, height: 200))
+        titleLabel.text = "Grumbl"
+        titleLabel.textColor = .white
+        titleLabel.textAlignment = NSTextAlignment.center
+        titleLabel.font = UIFont(name: "Futura", size: 50)
+        
+        //adds title Background
+        titlePictureView = UIImageView(frame: CGRect(x: self.view.bounds.width / 2 - 300, y: self.view.bounds.height / 2 - 350, width: 500, height: 120))
+        titlePictureView.layer.cornerRadius = 8.0
+        titlePictureView.clipsToBounds = true
+        titlePictureView.backgroundColor = UIColor.darkGray
+        
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = self.view.bounds
+        gradientLayer.colors = [UIColor.gray.cgColor, UIColor.white.cgColor]
+        gradientLayer.opacity = 0.5
+        self.view.layer.addSublayer(gradientLayer)
     }
     
     func randomSort(incomingCounter: Int) {
