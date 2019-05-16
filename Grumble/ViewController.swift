@@ -42,25 +42,10 @@ class ViewController: UIViewController, HomeModelProtocol {
         pullFromCoreData()
         
         //generates default picture
-        let foodPicture = UIImage(named: "testfood")
-        
-        foodPictureView = UIImageView(frame: CGRect(x: self.view.bounds.width / 2 - 100, y: self.view.bounds.height / 2  + 100, width: 200, height: 100))
-        foodPictureView.image = foodPicture
-        foodPictureView.contentMode = UIImageView.ContentMode.scaleAspectFill
-        foodPictureView.layer.cornerRadius = 8.0
-        //foodPictureView.clipsToBounds = true
-        foodPictureView.backgroundColor = UIColor.gray
+        createFoodPictureView()
         
         //creates food label
-        foodLabel = UILabel(frame: CGRect(x: self.view.bounds.width / 2 - 150, y: self.view.bounds.height / 2 - 50 , width: 300, height: 200))
-        
-        //Sets the properties of the foodlabel
-        //FIXME: improve font to something larger and easier to move (UI improvement)
-        foodLabel.lineBreakMode = .byWordWrapping
-        foodLabel.numberOfLines = 3
-        foodLabel.text = "Swipe to start"
-        foodLabel.textAlignment = NSTextAlignment.center
-        foodLabel.font = UIFont(name: "Futura", size: 42)
+       createFoodLabel()
         
         //Intialize the title
         createTitle()
@@ -91,7 +76,7 @@ class ViewController: UIViewController, HomeModelProtocol {
         
         let translation = gestureRecognizer.translation(in: view)
         let foodLabel = gestureRecognizer.view!
-        foodLabel.center = CGPoint(x: self.view.bounds.width / 2 + translation.x, y: self.view.bounds.width / 2 + translation.y)
+        foodLabel.center = CGPoint(x: self.view.bounds.width / 2 + translation.x, y: self.view.bounds.width / 2 + 150 + translation.y)
         //rotation of label
         let xFromCenter = foodLabel.center.x - self.view.bounds.width / 2
         var rotation = CGAffineTransform(rotationAngle: xFromCenter / 200)
@@ -208,9 +193,30 @@ class ViewController: UIViewController, HomeModelProtocol {
         
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = self.view.bounds
-        gradientLayer.colors = [UIColor.gray.cgColor, UIColor.white.cgColor]
+        gradientLayer.colors = [UIColor.darkGray.cgColor, UIColor.white.cgColor]
         gradientLayer.opacity = 0.5
         self.view.layer.addSublayer(gradientLayer)
+    }
+    
+    func createFoodPictureView() {
+        let foodPicture = UIImage(named: "testfood")
+        foodPictureView = UIImageView(frame: CGRect(x: self.view.bounds.width / 2 - 100, y: self.view.bounds.height / 2  + 100, width: 200, height: 100))
+        foodPictureView.image = foodPicture
+        foodPictureView.contentMode = UIImageView.ContentMode.scaleAspectFill
+        foodPictureView.layer.cornerRadius = 8.0
+        //foodPictureView.clipsToBounds = true
+        foodPictureView.backgroundColor = UIColor.gray
+    }
+    
+    func createFoodLabel() {
+        foodLabel = UILabel(frame: CGRect(x: self.view.bounds.width / 2 - 150, y: self.view.bounds.height / 2 - 50 , width: 300, height: 200))
+        //Sets the properties of the foodlabel
+        //FIXME: improve font to something larger and easier to move (UI improvement)
+        foodLabel.lineBreakMode = .byWordWrapping
+        foodLabel.numberOfLines = 3
+        foodLabel.text = "Swipe to start"
+        foodLabel.textAlignment = NSTextAlignment.center
+        foodLabel.font = UIFont(name: "Futura", size: 42)
     }
     
     func randomSort(incomingCounter: Int) {
@@ -259,7 +265,6 @@ class ViewController: UIViewController, HomeModelProtocol {
                         if let foodImg = UIImage(data: data) {
                             DispatchQueue.main.async {
                                 self.foodPictureView.image = foodImg
-                                
                                 }
                                 }
                         }
