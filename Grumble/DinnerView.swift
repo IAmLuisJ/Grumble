@@ -7,3 +7,17 @@
 //
 
 import Foundation
+import UIKit
+
+class DinnerViewController: UITableViewController {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        //Do any additional setup here
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+    //loads things once the view has appeared
+}
+    
+}

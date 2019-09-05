@@ -19,6 +19,8 @@
 		A0AE5A80210BA89A0088F924 /* LocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AE5A7F210BA89A0088F924 /* LocationModel.swift */; };
 		A0AE5A8221113BF30088F924 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AE5A8121113BF30088F924 /* DetailViewController.swift */; };
 		A0AE5A8521113D1F0088F924 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0AE5A8421113D1F0088F924 /* MapKit.framework */; };
+		B7E902E7232190D4002000A0 /* DinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E902E6232190D4002000A0 /* DinnerView.swift */; };
+		B7E902E923219587002000A0 /* DinnerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E902E823219587002000A0 /* DinnerItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +59,8 @@
 		A0AE5A7F210BA89A0088F924 /* LocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationModel.swift; sourceTree = "<group>"; };
 		A0AE5A8121113BF30088F924 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		A0AE5A8421113D1F0088F924 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		B7E902E6232190D4002000A0 /* DinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DinnerView.swift; sourceTree = "<group>"; };
+		B7E902E823219587002000A0 /* DinnerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DinnerItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +117,8 @@
 				A058D4C420F00429002E8730 /* AppDelegate.swift */,
 				A058D4C620F00429002E8730 /* ViewController.swift */,
 				A058D4C820F00429002E8730 /* Main.storyboard */,
+				B7E902E6232190D4002000A0 /* DinnerView.swift */,
+				B7E902E823219587002000A0 /* DinnerItem.swift */,
 				A058D4CE20F0042A002E8730 /* Assets.xcassets */,
 				A058D4D020F0042A002E8730 /* LaunchScreen.storyboard */,
 				A058D4D320F0042A002E8730 /* Info.plist */,
@@ -286,7 +292,9 @@
 			files = (
 				A0AE5A7E210BA8620088F924 /* HomeModel.swift in Sources */,
 				A058D4C720F00429002E8730 /* ViewController.swift in Sources */,
+				B7E902E923219587002000A0 /* DinnerItem.swift in Sources */,
 				A058D4CD20F00429002E8730 /* Grumble.xcdatamodeld in Sources */,
+				B7E902E7232190D4002000A0 /* DinnerView.swift in Sources */,
 				A0AE5A8221113BF30088F924 /* DetailViewController.swift in Sources */,
 				A0AE5A80210BA89A0088F924 /* LocationModel.swift in Sources */,
 				A058D4C520F00429002E8730 /* AppDelegate.swift in Sources */,

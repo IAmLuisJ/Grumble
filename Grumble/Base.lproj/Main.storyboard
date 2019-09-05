@@ -61,10 +61,10 @@
             </objects>
             <point key="canvasLocation" x="2180" y="-564.46776611694156"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Dinner View Controller-->
         <scene sceneID="eDo-Xj-r5H">
             <objects>
-                <tableViewController id="6vC-HS-vQN" sceneMemberID="viewController">
+                <tableViewController id="6vC-HS-vQN" customClass="DinnerViewController" customModule="Grumble" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="FVi-dx-t1P">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
