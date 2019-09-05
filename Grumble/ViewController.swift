@@ -23,6 +23,11 @@ class ViewController: UIViewController, HomeModelProtocol {
     var foodUsedArray: Array<Int> = Array()
     
     
+    @IBAction func swapModeTapped(_ sender: Any) {
+        //edit is tapped
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -45,7 +50,7 @@ class ViewController: UIViewController, HomeModelProtocol {
         createFoodPictureView()
         
         //creates food label
-       createFoodLabel()
+        createFoodLabel()
         
         //Intialize the title
         createTitle()
@@ -135,10 +140,10 @@ class ViewController: UIViewController, HomeModelProtocol {
                 }
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let detailVC = segue.destination as! DetailViewController
-        detailVC.selectedLocation = selectedItem
-    }
+    //override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+      //  let detailVC = segue.destination as! DetailViewController
+        //detailVC.selectedLocation = selectedItem
+    //}
     
     func foodChosen() {
         //print chosen to console
@@ -157,7 +162,7 @@ class ViewController: UIViewController, HomeModelProtocol {
         print("chosen has worked")
         foodUsedArray = Array(0...feedItems.count)
         //shuffle array
-        print(foodUsedArray)
+        
         
        
     }
