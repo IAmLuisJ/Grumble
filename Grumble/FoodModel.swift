@@ -9,7 +9,7 @@
 
 import Foundation
 
-class LocationModel: NSObject {
+class FoodModel: NSObject {
     //properties
     
     var id: String?

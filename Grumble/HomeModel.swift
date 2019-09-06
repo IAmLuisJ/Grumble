@@ -57,7 +57,7 @@ class HomeModel: NSObject, URLSessionDelegate {
         for i in 0 ..< jsonResult.count
         {
             jsonElement = jsonResult[i] as! NSDictionary
-            let location = LocationModel()
+            let location = FoodModel()
         
         //the following insures none of the json element values are nil through optional binding
         if let id = jsonElement["id"] as? String,

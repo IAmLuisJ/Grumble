@@ -24,7 +24,7 @@
                         <barButtonItem key="leftBarButtonItem" title="Swap Mode" id="1lP-U1-cGA" userLabel="Swap Mode">
                             <connections>
                                 <action selector="swapModeTapped:" destination="BYZ-38-t0r" id="VrF-Xl-E8G"/>
-                                <segue destination="6vC-HS-vQN" kind="show" id="Gor-Cq-895"/>
+                                <segue destination="l5A-8V-xrJ" kind="show" id="Gor-Cq-895"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -70,7 +70,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="dayCell" id="Aed-xe-O8O">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="dinnerCell" id="Aed-xe-O8O">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Aed-xe-O8O" id="GrA-OW-ZL1">
@@ -84,10 +84,19 @@
                             <outlet property="delegate" destination="6vC-HS-vQN" id="OzA-qA-uc9"/>
                         </connections>
                     </tableView>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="tVa-8b-iu0">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="GFA-B7-VMV">
+                            <connections>
+                                <action selector="addItemButton:" destination="6vC-HS-vQN" id="hnX-6s-aIG"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="opN-0Q-vZF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1361" y="154"/>
+            <point key="canvasLocation" x="2300" y="153.37331334332833"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="87K-Kl-qBW">
@@ -106,6 +115,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mrd-2l-8lM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="432.80000000000001" y="-564.46776611694156"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="D8V-1E-br8">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="l5A-8V-xrJ" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="k3p-Yv-akp">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="6vC-HS-vQN" kind="relationship" relationship="rootViewController" id="LmA-sq-Nhd"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kTp-WX-2Cs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1360.8" y="153.37331334332833"/>
         </scene>
     </scenes>
 </document>

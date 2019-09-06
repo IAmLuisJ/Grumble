@@ -13,7 +13,7 @@ import CoreData
 class ViewController: UIViewController, HomeModelProtocol {
     //properties
     var feedItems: NSArray = NSArray()
-    var selectedItem: LocationModel = LocationModel()
+    var selectedItem: FoodModel = FoodModel()
     var counter = 0
     var maxCount = 0
     var titleLabel: UILabel = UILabel()
@@ -115,7 +115,7 @@ class ViewController: UIViewController, HomeModelProtocol {
             let imagecounter = Swift.abs(counter - 1)
             print("image tapped")
             print(imagecounter)
-            selectedItem = feedItems[imagecounter] as! LocationModel
+            selectedItem = feedItems[imagecounter] as! FoodModel
             //self.performSegue(withIdentifier: "mapSegue", sender: self)
             
             //pass name to maps API
@@ -247,7 +247,7 @@ class ViewController: UIViewController, HomeModelProtocol {
         
         maxCount = feedItems.count - 1
         print("max count has been set to \(feedItems.count)")
-        selectedItem = feedItems[counter] as! LocationModel
+        selectedItem = feedItems[counter] as! FoodModel
         //forces items array into selected item as a locationObject
         print(selectedItem.description)
         print("counter is now: \(counter)")

@@ -15,7 +15,7 @@ class DetailViewController : UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
     
-    var selectedLocation : LocationModel?
+    var selectedLocation : FoodModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
