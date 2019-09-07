@@ -38,7 +38,7 @@ class FoodModel: NSObject {
     //prints objects current state
     
     override var description: String {
-        return "ID: \(id!) Name: \(foodName!), image: \(foodImage!), latitude: \(delivery!), longitude: \(gluttenFree!)"
+        return "ID: \(id!) Name: \(foodName!), image: \(foodImage!), Delivery: \(delivery!), GluttenFree: \(gluttenFree!)"
     }
     
 }

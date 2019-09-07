@@ -16,7 +16,7 @@
 		A058D4E820F0042A002E8730 /* GrumbleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A058D4E720F0042A002E8730 /* GrumbleUITests.swift */; };
 		A0AE5A7B20F835B60088F924 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0AE5A7A20F835B60088F924 /* Media.xcassets */; };
 		A0AE5A7E210BA8620088F924 /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AE5A7D210BA8620088F924 /* HomeModel.swift */; };
-		A0AE5A80210BA89A0088F924 /* LocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AE5A7F210BA89A0088F924 /* LocationModel.swift */; };
+		A0AE5A80210BA89A0088F924 /* FoodModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AE5A7F210BA89A0088F924 /* FoodModel.swift */; };
 		A0AE5A8221113BF30088F924 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AE5A8121113BF30088F924 /* DetailViewController.swift */; };
 		A0AE5A8521113D1F0088F924 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0AE5A8421113D1F0088F924 /* MapKit.framework */; };
 		B7E902E7232190D4002000A0 /* DinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E902E6232190D4002000A0 /* DinnerView.swift */; };
@@ -56,7 +56,7 @@
 		A058D4E920F0042A002E8730 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A0AE5A7A20F835B60088F924 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		A0AE5A7D210BA8620088F924 /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
-		A0AE5A7F210BA89A0088F924 /* LocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationModel.swift; sourceTree = "<group>"; };
+		A0AE5A7F210BA89A0088F924 /* FoodModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodModel.swift; sourceTree = "<group>"; };
 		A0AE5A8121113BF30088F924 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		A0AE5A8421113D1F0088F924 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		B7E902E6232190D4002000A0 /* DinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DinnerView.swift; sourceTree = "<group>"; };
@@ -124,7 +124,7 @@
 				A058D4D320F0042A002E8730 /* Info.plist */,
 				A058D4CB20F00429002E8730 /* Grumble.xcdatamodeld */,
 				A0AE5A7D210BA8620088F924 /* HomeModel.swift */,
-				A0AE5A7F210BA89A0088F924 /* LocationModel.swift */,
+				A0AE5A7F210BA89A0088F924 /* FoodModel.swift */,
 				A0AE5A8121113BF30088F924 /* DetailViewController.swift */,
 			);
 			path = Grumble;
@@ -296,7 +296,7 @@
 				A058D4CD20F00429002E8730 /* Grumble.xcdatamodeld in Sources */,
 				B7E902E7232190D4002000A0 /* DinnerView.swift in Sources */,
 				A0AE5A8221113BF30088F924 /* DetailViewController.swift in Sources */,
-				A0AE5A80210BA89A0088F924 /* LocationModel.swift in Sources */,
+				A0AE5A80210BA89A0088F924 /* FoodModel.swift in Sources */,
 				A058D4C520F00429002E8730 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

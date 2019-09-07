@@ -163,7 +163,7 @@ class ViewController: UIViewController, HomeModelProtocol {
         foodUsedArray = Array(0...feedItems.count)
         //shuffle array
         
-        
+        // TODO: add swiped item to dinneritems list
        
     }
     

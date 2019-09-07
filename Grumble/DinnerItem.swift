@@ -84,4 +84,38 @@ extension Collection where Iterator.Element == DinnerItem {
         let url = try? FileManager.default.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
         return url?.appendingPathComponent("dinnerItems.bin")
     }
+    
+    //write the dinnerItem array to local file
+    func writeToPersistence() throws
+    {
+        if let url = Self.persistencePath(), let array = self as? NSArray
+        {
+            let data = try NSKeyedArchiver.archivedData(withRootObject: array, requiringSecureCoding: false)
+            try data.write(to: url)
+            print("Local Items saved")
+        } else
+        {
+            throw NSError(domain: "errorCode", code: 10, userInfo: nil)
+        }
+    }
+    
+    static func readFromPersistence() throws -> [DinnerItem]
+    {
+        if let url = persistencePath(), let data = (try Data(contentsOf: url) as Data?)
+        {
+            if let array = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? [DinnerItem]
+            {
+                print("Items loaded: \(array)")
+                return array
+            }
+            else {
+                throw NSError(domain: "errorCode", code: 11, userInfo: nil)
+            }
+        }
+        else {
+            throw NSError(domain: "errorCode", code: 12, userInfo: nil)
+        }
+    }
+    
+    
 }

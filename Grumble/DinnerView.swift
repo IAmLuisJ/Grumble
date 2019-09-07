@@ -81,7 +81,7 @@ class DinnerViewController: UITableViewController {
         
     }
     
-    private func addNewDinnerItem(title: String)
+    public func addNewDinnerItem(title: String)
     {
         //new index is where the new item will go into the dinnerItems array
         let newIndex = dinnerItems.count
@@ -91,6 +91,14 @@ class DinnerViewController: UITableViewController {
         tableView.insertRows(at: [IndexPath(row: newIndex, section: 0)], with: .top)
     }
     
+//    override func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
+//       return false
+//    }
+//
+//    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+//        return .none
+//    }
+    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath)
     {//allows swipe to delete item
         if indexPath.row < dinnerItems.count {
@@ -99,14 +107,71 @@ class DinnerViewController: UITableViewController {
         }
     }
     
+    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        //update the data source for reordered list
+        let movedObject = self.dinnerItems[sourceIndexPath.row]
+        dinnerItems.remove(at: sourceIndexPath.row)
+        dinnerItems.insert(movedObject, at: destinationIndexPath.row)
+    }
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //Do any additional setup here
         self.title = "Dinner List"
+        self.tableView.isEditing = true
+        
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(UIApplicationDelegate.applicationDidEnterBackground(_:)), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
+        
+        do {
+            //try to load from bin file
+            self.dinnerItems = try [DinnerItem].readFromPersistence()
+        } catch let error as NSError
+        {
+            if error.domain == NSCocoaErrorDomain && error.code == NSFileReadNoSuchFileError
+            {
+                print("No persistence file found")
+            } else {
+                let alert = UIAlertController(title: "Error", message: "Unable to load Food items", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                print("Error loading from file \(error)")
+            }
+        }
+        
+        
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
     //loads things once the view has appeared
 }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if self.isMovingFromParentViewController {
+            do {
+                try dinnerItems.writeToPersistence()
+            } catch let error
+            {
+                print("Error saving to file: \(error)")
+            }
+        }
+    }
+    
+    @objc
+    public func applicationDidEnterBackground(_ notification: NSNotification)
+    {
+        //this is called when the observer sees that the app entered the background
+        do {
+            try dinnerItems.writeToPersistence()
+        } catch let error
+        {
+            print("Error saving to file: \(error)")
+        }
+    }
     
 }
