@@ -12,7 +12,7 @@ import UIKit
 class DinnerViewController: UITableViewController {
     
     //generates mock data
-    private var dinnerItems = DinnerItem.getMockData()
+    var dinnerItems: Array<DinnerItem> = Array()
     
     @IBAction func addItemButton(_ sender: Any) {
         didTapAddItemButton()
@@ -54,6 +54,24 @@ class DinnerViewController: UITableViewController {
         }
     }
     
+    func loadLocalFileData() {
+        do {
+            //try to load from bin file
+            self.dinnerItems = try [DinnerItem].readFromPersistence()
+        } catch let error as NSError
+        {
+            if error.domain == NSCocoaErrorDomain && error.code == NSFileReadNoSuchFileError
+            {
+                print("No persistence file found")
+            } else {
+                let alert = UIAlertController(title: "Error", message: "Unable to load Food items", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                print("Error loading from file \(error)")
+            }
+        }
+    }
+    
     func didTapAddItemButton()
     {
         //create alert to allow input of new item
@@ -89,6 +107,7 @@ class DinnerViewController: UITableViewController {
         dinnerItems.append(DinnerItem(title: title))
         //update the table view
         tableView.insertRows(at: [IndexPath(row: newIndex, section: 0)], with: .top)
+       
     }
     
 //    override func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
@@ -124,23 +143,8 @@ class DinnerViewController: UITableViewController {
         
         
         NotificationCenter.default.addObserver(self, selector: #selector(UIApplicationDelegate.applicationDidEnterBackground(_:)), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
-        
-        do {
-            //try to load from bin file
-            self.dinnerItems = try [DinnerItem].readFromPersistence()
-        } catch let error as NSError
-        {
-            if error.domain == NSCocoaErrorDomain && error.code == NSFileReadNoSuchFileError
-            {
-                print("No persistence file found")
-            } else {
-                let alert = UIAlertController(title: "Error", message: "Unable to load Food items", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
-                print("Error loading from file \(error)")
-            }
-        }
-        
+        //pulls in local data
+       loadLocalFileData()
         
         
     }

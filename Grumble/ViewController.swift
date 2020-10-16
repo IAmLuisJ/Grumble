@@ -11,6 +11,7 @@ import UIKit
 import CoreData
 
 class ViewController: UIViewController, HomeModelProtocol {
+    
     //properties
     var feedItems: NSArray = NSArray()
     var selectedItem: FoodModel = FoodModel()
@@ -21,30 +22,27 @@ class ViewController: UIViewController, HomeModelProtocol {
     var foodPictureView = UIImageView()
     var titlePictureView = UIImageView()
     var foodUsedArray: Array<Int> = Array()
-    
+    var itemsSwiped: Array<DinnerItem> = Array()
+   
+   
     
     @IBAction func swapModeTapped(_ sender: Any) {
         //edit is tapped
-        
+       
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-    
         let homeModel = HomeModel()
         homeModel.delegate = self
         //here is where we download the items
         homeModel.downloadItems()
-        print(feedItems.count)
-       
-        //grab location and query database for nearby items
-        //TODO: calculate distance based on user location
-        //to do this, we have to pass the query to maps API, then return distance
-        
-        
+        print("loaded \(feedItems.count) items from server")
         //pulls local results that are stored from core data ( this will be useful later to save static information such as user preferences)
         pullFromCoreData()
+        //pulls in items from local bin file
+        loadLocalBinData()
         
         //generates default picture
         createFoodPictureView()
@@ -73,6 +71,9 @@ class ViewController: UIViewController, HomeModelProtocol {
         foodPictureView.addGestureRecognizer(tapGesture)
         
         
+        //grab location and query database for nearby items
+        //TODO: calculate distance based on user location
+        //to do this, we have to pass the query to maps API, then return distance
         //end of viewDidLoad
     }
     
@@ -148,6 +149,7 @@ class ViewController: UIViewController, HomeModelProtocol {
     func foodChosen() {
         //print chosen to console
         //display chosen picture, then animate swipe and generate next food
+        guard var selectedName = selectedItem.foodName else { return }
         let chosenPicture = UIImage(named: "like")
         let chosenPictureView = UIImageView(frame: CGRect(x: self.view.bounds.width / 2 - 200, y: self.view.bounds.height / 2, width: 200, height: 180))
         chosenPictureView.image = chosenPicture
@@ -164,7 +166,14 @@ class ViewController: UIViewController, HomeModelProtocol {
         //shuffle array
         
         // TODO: add swiped item to dinneritems list
-       
+        itemsSwiped.append(DinnerItem(title: selectedName))
+        print("item: \(itemsSwiped) has been added")
+        do {
+            try itemsSwiped.writeToPersistence()
+        } catch let error
+        {
+            print("Error saving to file: \(error)")
+        }
     }
     
     func notChosen() {
@@ -219,7 +228,7 @@ class ViewController: UIViewController, HomeModelProtocol {
         //FIXME: improve font to something larger and easier to move (UI improvement)
         foodLabel.lineBreakMode = .byWordWrapping
         foodLabel.numberOfLines = 3
-        foodLabel.text = "Swipe to start"
+        foodLabel.text = "Swipe left to start"
         foodLabel.textAlignment = NSTextAlignment.center
         foodLabel.font = UIFont(name: "Futura", size: 42)
     }
@@ -241,8 +250,6 @@ class ViewController: UIViewController, HomeModelProtocol {
         
         //stores the string of path to server and folder of web server
         let imageServerURL = "http://skycloudapps.com/foodimages/"
-       
-        
         //keeps track of items that are available in the database
         
         maxCount = feedItems.count - 1
@@ -281,6 +288,7 @@ class ViewController: UIViewController, HomeModelProtocol {
             foodLabel.text = selectedItem.foodName
             
             print("image has been updated")
+            
             //TODO: instead of adding to counter, we should randomize order
             counter = counter + 1
         } else if counter == maxCount {
@@ -312,6 +320,25 @@ class ViewController: UIViewController, HomeModelProtocol {
          print("There was an error")
          }
          */
+    }
+    
+    func loadLocalBinData() {
+        do {
+            //try to load from bin file
+            self.itemsSwiped = try [DinnerItem].readFromPersistence()
+            print("items loaded: \(itemsSwiped.count)")
+        } catch let error as NSError
+        {
+            if error.domain == NSCocoaErrorDomain && error.code == NSFileReadNoSuchFileError
+            {
+                print("No persistence file found")
+            } else {
+                let alert = UIAlertController(title: "Error", message: "Unable to load Food items", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                print("Error loading from file \(error)")
+            }
+        }
     }
     
     func pullFromCoreData() {
@@ -360,7 +387,7 @@ class ViewController: UIViewController, HomeModelProtocol {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
 
 }
 

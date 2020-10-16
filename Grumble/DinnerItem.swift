@@ -99,6 +99,7 @@ extension Collection where Iterator.Element == DinnerItem {
         }
     }
     
+    //reads item from local file
     static func readFromPersistence() throws -> [DinnerItem]
     {
         if let url = persistencePath(), let data = (try Data(contentsOf: url) as Data?)
